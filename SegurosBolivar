@@ -1,0 +1,51 @@
+package segurosBolivar;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SegurosBolivar {
+	private WebDriver driver;
+	By nameLocator = By.name("userName");
+	By passLocator = By.name("password");
+	By submitBtnLocator = By.xpath("/html/body/div[2]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[3]/form/table/tbody/tr[4]/td/table/tbody/tr[4]/td[2]/div/input");
+	By loginLocator = By.xpath("/html/body/div[2]/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td/h3");
+	@BeforeEach
+	public void setUp() throws InterruptedException{
+		System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver/chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://demo.guru99.com/test/newtours/");
+		/*Se sabe que no es la mejor práctica pero para efectos de la prueba usaré el sleep*/
+		Thread.sleep(2000);
+	}
+	@AfterEach
+	public void tearDown() {
+		driver.quit();
+	}
+	
+	@Test
+	public void login() throws InterruptedException {
+		String var="";
+		driver.findElement(nameLocator).sendKeys("yoda");
+		Thread.sleep(1000);
+		driver.findElement(passLocator).sendKeys("123");
+		Thread.sleep(1000);
+		driver.findElement(submitBtnLocator).click();
+		Thread.sleep(1000);
+		var=driver.findElement(loginLocator).getText();
+		if (var=="Login Successfully"){
+			System.out.println("Se ha loggeado correctamente");
+		}
+		else {
+			System.out.println("Credenciales incorrectas.");
+		}
+		
+	}
+}
