@@ -38,7 +38,6 @@ public class SegurosBolivar {
 		driver.findElement(passLocator).sendKeys("123");
 		Thread.sleep(1000);
 		driver.findElement(submitBtnLocator).click();
-		Thread.sleep(1000);
 		var=driver.findElement(loginLocator).getText();
 		if (var=="Login Successfully"){
 			System.out.println("Se ha loggeado correctamente");
